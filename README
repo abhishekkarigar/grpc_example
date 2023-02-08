@@ -1,0 +1,23 @@
+issues when running protoc command
+
+        protoc-gen-go: unable to determine Go import path for "chat.proto"
+
+        Please specify either:
+                • a "go_package" option in the .proto source file, or
+                • a "M" argument on the command line.
+
+        See https://developers.google.com/protocol-buffers/docs/reference/go-generated#package for more information.
+
+        --go_out: protoc-gen-go: Plugin failed with status code 1.
+
+above issue got resolved once adding the following line in chat.proto file
+option go_package = "chat/";
+
+then re-execute the following command
+
+$ protoc --go_out=plugins=grpc:. chat/chat.proto
+
+
+Note: chat folder has chat.pb.go which is used for registration in server.go file
+      chat.proto is definition which will be shared with the clients unlike rest api where we use json data from client
+      chat.go has the definition/implementation to rpc messages
